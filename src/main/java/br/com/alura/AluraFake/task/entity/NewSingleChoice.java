@@ -4,7 +4,6 @@ import br.com.alura.AluraFake.task.Type.Type;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.aspectj.weaver.loadtime.Options;
 
 import java.util.ArrayList;
 import java.util.List;
