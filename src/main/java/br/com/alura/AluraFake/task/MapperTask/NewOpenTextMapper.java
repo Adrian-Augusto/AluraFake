@@ -10,7 +10,7 @@ public class NewOpenTextMapper {
 
         NewOpenText entity = new NewOpenText();
         entity.setStatement(dto.getStatement());
-        entity.setOrderr(dto.getOrderr());
+        entity.setOrder(dto.getOrder());
         entity.setType(Type.OPEN_TEXT);
 
         return entity;
@@ -23,4 +23,3 @@ public class NewOpenTextMapper {
         return dto;
     }
 }
-

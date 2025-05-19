@@ -1,19 +1,18 @@
 package br.com.alura.AluraFake.task.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
+
 @Getter
 @Setter
-
 public class OptionsDTO {
 
     private String option;
-    private boolean isCorrect;
+    private boolean isCorrect=false;
 
-    public OptionsDTO(String option, boolean isCorrect) {
-        this.option = option;
-        this.isCorrect = isCorrect;
-    }
+
+
 }
