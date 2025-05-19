@@ -11,7 +11,7 @@ public class NewMultipleChoiceMapper {
 
         NewMultiplechoice entity = new NewMultiplechoice();
         entity.setStatement(dto.getStatement());
-        entity.setOrderr(dto.getOrderr());
+        entity.setOrder(dto.getOrder());
         entity.setType(Type.MULTIPLE_CHOICE);
 
         return entity;
@@ -21,7 +21,7 @@ public class NewMultipleChoiceMapper {
         if (entity == null) return null;
         NewMultiplechoiceDTO dto = new NewMultiplechoiceDTO();
         dto.setStatement(entity.getStatement());
-        dto.setOrderr(entity.getOrderr());
+        dto.setOrder(entity.getOrder());
         return dto;
     }
 }

@@ -1,36 +1,38 @@
 package br.com.alura.AluraFake.task.MapperTask;
 
-
+import br.com.alura.AluraFake.course.Course;
+import br.com.alura.AluraFake.task.Type.Type;
 import br.com.alura.AluraFake.task.dto.NewSingleChoiceDTO;
 import br.com.alura.AluraFake.task.entity.NewSingleChoice;
+import br.com.alura.AluraFake.task.entity.Options;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class NewSingleChoiceMapper {
 
-    public static NewSingleChoice toEntity(NewSingleChoiceDTO dto) {
-        if (dto == null) return null;
 
-        NewSingleChoice entity = new NewSingleChoice();
-        entity.setStatement(dto.getStatement());
-        entity.setOrderr(dto.getOrderr());
-        entity.setType(Type.SINGLE_CHOICE);
+        public static NewSingleChoice toEntity(NewSingleChoiceDTO dto) {
+            if (dto == null) return null;
 
-        // Mapear lista de OptionsDTO para lista de Options
-        if (dto.getOption() != null) {
-            List<Options> options = dto.getOption().stream()
-                    .map(optDto -> {
-                        Options opt = new Options();
-                        opt.setOption(optDto.getOption());
-                        opt.setIsCorrect(optDto.getIsCorrect());
-                        return opt;
-                    })
-                    .collect(Collectors.toList());
-            entity.setOption(options);
+            NewSingleChoice entity = new NewSingleChoice();
+            entity.setStatement(dto.getStatement());
+            entity.setOrder(dto.getOrder());
+            entity.setType(Type.SINGLE_CHOICE);
+
+            if (dto.getOptions() != null) {
+                List<Options> options = dto.getOptions().stream()
+                        .map(optDto -> {
+                            Options opt = new Options();
+                            opt.setOption(optDto.getOption());
+                            opt.setCorrect(optDto.isCorrect());
+                            opt.setTask(entity);
+                            return opt;
+                        })
+                        .collect(Collectors.toList());
+                entity.setOptions(options);
+            }
+
+            return entity;
         }
-
-        return entity;
     }
-
-
-}

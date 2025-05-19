@@ -1,6 +1,7 @@
 package br.com.alura.AluraFake.task.Controller;
 
 import br.com.alura.AluraFake.task.dto.NewOpenTextDTO;
+import br.com.alura.AluraFake.task.dto.NewSingleChoiceDTO;
 import br.com.alura.AluraFake.task.entity.NewOpenText;
 import br.com.alura.AluraFake.task.entity.NewSingleChoice;
 import br.com.alura.AluraFake.task.services.NewOpenTextService;
