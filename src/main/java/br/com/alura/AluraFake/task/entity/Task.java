@@ -12,7 +12,6 @@ import lombok.Setter;
 @Table(name = "tasks")
 @Getter
 @Setter
-
 public class   Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,9 +19,7 @@ public class   Task {
     private String statement;
     @Column(name = "orderr")
     private Integer order;
-
     @ManyToOne(optional = false)
-
     @JoinColumn(name = "courseId")
     @JsonIgnore
     private Course course;

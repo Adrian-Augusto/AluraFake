@@ -3,6 +3,7 @@ package br.com.alura.AluraFake.task.MapperTask;
 import br.com.alura.AluraFake.course.Course;
 import br.com.alura.AluraFake.task.Type.Type;
 import br.com.alura.AluraFake.task.dto.NewSingleChoiceDTO;
+import br.com.alura.AluraFake.task.dto.OptionsDTO;
 import br.com.alura.AluraFake.task.entity.NewSingleChoice;
 import br.com.alura.AluraFake.task.entity.Options;
 
@@ -12,8 +13,10 @@ import java.util.stream.Collectors;
 public class NewSingleChoiceMapper {
 
 
-        public static NewSingleChoice toEntity(NewSingleChoiceDTO dto) {
+        public static NewSingleChoice toEntity(NewSingleChoiceDTO dto  ) {
             if (dto == null) return null;
+
+
 
             NewSingleChoice entity = new NewSingleChoice();
             entity.setStatement(dto.getStatement());

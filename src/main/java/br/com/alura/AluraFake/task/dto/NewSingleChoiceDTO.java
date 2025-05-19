@@ -16,6 +16,7 @@ import java.util.List;
 
 @Getter
 @Setter
+
 public class NewSingleChoiceDTO {
     @NotNull(message = "Course ID is required")
     private Long courseId;
@@ -31,5 +32,11 @@ public class NewSingleChoiceDTO {
     @Size( max = 6, message = "list min 0 list max 5")
     private List<Options> options = new ArrayList<>();
 
-
+    public NewSingleChoiceDTO(Long courseId, String statement, Course course, Integer order, List<Options> options) {
+        this.courseId = courseId;
+        this.statement = statement;
+        this.course = course;
+        this.order = order;
+        this.options = options;
+    }
 }

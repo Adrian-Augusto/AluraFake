@@ -20,8 +20,6 @@ public class NewMultiplechoice extends Task {
 
     @Transient
     private Type type = Type.MULTIPLE_CHOICE;
-
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Size(min = 2, max = 5, message = "list min 2 list max 5")
     private List<Options> options = new ArrayList<>();
 }

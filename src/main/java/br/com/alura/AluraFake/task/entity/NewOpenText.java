@@ -10,8 +10,5 @@ import lombok.Setter;
 @Setter
 @Entity
 @DiscriminatorValue("OPEN_TEXT")
-public class NewOpenText extends Task{
-
-
-}
+public class NewOpenText extends Task{ }
 

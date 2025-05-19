@@ -28,10 +28,18 @@ public class NewMultiplechoiceDTO {
     @Column(name = "orderr")
     private Integer order;
     @ManyToOne
-    @Size(min = 2, max = 5, message = "list min 2 list max 5")
+    @Size( max = 5, message = "list mx list max5 ")
     private List<Options> options = new ArrayList<>();
 
+    public NewMultiplechoiceDTO(Long courseId, String statement, Integer order, List<Options> options) {
+        this.courseId = courseId;
+        this.statement = statement;
+        this.order = order;
+        this.options = options;
+    }
 
+    public NewMultiplechoiceDTO() {
+    }
 }
 
 

@@ -16,7 +16,7 @@ public class NewOpenTextService {
     private NewOpenTextRepository repository;
 
     @Autowired
-    private CourseRepository courseRepository;  // injete o repo do Course
+    private CourseRepository courseRepository;
 
         public NewOpenText newOpenTextExercise(NewOpenTextDTO dto) {
 

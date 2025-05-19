@@ -5,54 +5,25 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class Options {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
-
     private String option;
-
     private boolean isCorrect;
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "task_id")
     private Task task;
 
-    public Task getTask() {
-        return task;
-    }
 
-    public void setTask(Task task) {
-        this.task = task;
-    }
-
-    public boolean isCorrect(boolean correct) {
-        return isCorrect;
-    }
-
-    public void setCorrect(boolean correct) {
-        isCorrect = correct;
-    }
-
-    public String getOption() {
-        return option;
-    }
-
-    public void setOption(String option) {
-        this.option = option;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }
