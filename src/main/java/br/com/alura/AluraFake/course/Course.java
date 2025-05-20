@@ -3,6 +3,8 @@ package br.com.alura.AluraFake.course;
 import br.com.alura.AluraFake.task.entity.Task;
 import br.com.alura.AluraFake.user.User;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
@@ -10,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 public class Course {
 
     @Id
@@ -39,35 +43,4 @@ public class Course {
         this.status = Status.BUILDING;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public User getInstructor() {
-        return instructor;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public LocalDateTime getPublishedAt() {
-        return publishedAt;
-    }
 }
