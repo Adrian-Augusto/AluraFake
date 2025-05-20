@@ -35,6 +35,7 @@ public class TaskController {
     @PostMapping("/task/new/singlechoice")
     public ResponseEntity<NewSingleChoice> newSingleChoice(@Valid @RequestBody NewSingleChoiceDTO dto) {
         NewSingleChoice newSingleChoice = newSingle.singlechoice(dto);
+
         return ResponseEntity.ok().build();
     }
 
