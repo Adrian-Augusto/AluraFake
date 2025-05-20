@@ -3,6 +3,10 @@ package br.com.alura.AluraFake.task.MapperTask;
 import br.com.alura.AluraFake.task.Type.Type;
 import br.com.alura.AluraFake.task.dto.NewMultiplechoiceDTO;
 import br.com.alura.AluraFake.task.entity.NewMultiplechoice;
+import br.com.alura.AluraFake.task.entity.Options;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class NewMultipleChoiceMapper {
 
@@ -11,17 +15,21 @@ public class NewMultipleChoiceMapper {
 
         NewMultiplechoice entity = new NewMultiplechoice();
         entity.setStatement(dto.getStatement());
-        entity.setOrder(dto.getOrder());
+        entity.setOrderr(dto.getOrderr());
         entity.setType(Type.MULTIPLE_CHOICE);
 
-        return entity;
-    }
+        if (dto.getOptions() != null) {
+            List<Options> options = dto.getOptions().stream()
+                    .map(optDto -> {
+                        Options opt = new Options();
+                        opt.setOption(optDto.getOption());
+                        opt.setIscorrect(optDto.isIscorrect());
+                        opt.setTask(entity);
+                        return opt;
+                    })
+                    .collect(Collectors.toList());
+            entity.setOptions(options);
+        }
 
-    public static NewMultiplechoiceDTO toDto(NewMultiplechoice entity) {
-        if (entity == null) return null;
-        NewMultiplechoiceDTO dto = new NewMultiplechoiceDTO();
-        dto.setStatement(entity.getStatement());
-        dto.setOrder(entity.getOrder());
-        return dto;
-    }
-}
+        return entity;
+    }}

@@ -3,6 +3,7 @@ package br.com.alura.AluraFake.task.Validation;
 import br.com.alura.AluraFake.course.Course;
 import br.com.alura.AluraFake.course.CourseRepository;
 import br.com.alura.AluraFake.course.Status;
+import br.com.alura.AluraFake.task.entity.NewMultiplechoice;
 import br.com.alura.AluraFake.task.entity.NewSingleChoice;
 import br.com.alura.AluraFake.task.entity.Options;
 import br.com.alura.AluraFake.task.repository.NewSingleChoiceRepository;
@@ -23,8 +24,9 @@ public class NewSingleChoiceValidation {
     }
     public void ValidateStatement(NewSingleChoice single){
         String statement = single.getStatement();
-        if (statement == null || statement.isEmpty()){}
+        if (statement == null || statement.trim().isEmpty()){}
     }
+
 
     public void validate(NewSingleChoice single, Course course) {
         // 1. Curso deve estar em BUILDING
@@ -42,11 +44,11 @@ public class NewSingleChoiceValidation {
     }
 
     private void validateOptions(List<Options> options, String statement) {
-        if (options == null || options.size() < 2 || options.size() > 5) {
+        if (options == null || options.size() < 1 || options.size() > 4) {
             throw new ValidationException("A atividade deve ter entre 2 e 5 alternativas.");
         }
 
-        long correctCount = options.stream().filter(Options::isCorrect).count();
+        long correctCount = options.stream().filter(Options::isIscorrect).count();
         if (correctCount != 1) {
             throw new ValidationException("A atividade deve ter exatamente uma alternativa correta.");
         }

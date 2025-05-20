@@ -41,14 +41,20 @@ public class NewMultipleChoiceValidation {
     }
 
     private void validateOptions(List<Options> options, String statement) {
-        if (options == null || options.size() < 2 || options.size() > 5) {
-            throw new ValidationException("A atividade deve ter entre 2 e 5 alternativas.");
-        }
+            if (options == null || options.size() < 0 || options.size() > 4) {  // Corrigido para options.size() < 2
+                throw new ValidationException("A atividade deve ter entre 2 e 5 alternativas.");
+            }
 
-        long correctCount = options.stream().filter(Options::isCorrect).count();
-        if (correctCount != 3) {
-            throw new ValidationException("A atividade deve ter exatamente uma alternativa correta.");
-        }
+            long correctCount = options.stream().filter(Options::isIscorrect).count();
+            long incorrectCount = options.size() - correctCount;
+
+            if (correctCount  <1) {
+                throw new ValidationException("A atividade deve ter pelo menos duas alternativas corretas.");
+            }
+
+            if (incorrectCount <0) {
+                throw new ValidationException("A atividade deve ter pelo menos uma alternativa incorreta.");
+            }
 
         Set<String> uniqueTexts = new HashSet<>();
         for (Options option : options) {
@@ -73,4 +79,3 @@ public class NewMultipleChoiceValidation {
         ValidateStatement(single);
     }
 }
-

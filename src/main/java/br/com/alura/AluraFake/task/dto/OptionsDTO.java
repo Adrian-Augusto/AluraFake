@@ -1,31 +1,16 @@
 package br.com.alura.AluraFake.task.dto;
-
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import br.com.alura.AluraFake.task.entity.Options;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
 
+@Setter
+@Getter
 public class OptionsDTO {
-
     private String option;
     private boolean iscorrect;
+    private List<OptionsDTO> options = new ArrayList<>();
 
-
-    public String getOption() {
-        return option;
-    }
-
-    public void setOption(String option) {
-        this.option = option;
-    }
-
-    public boolean isIscorrect() {
-        return iscorrect;
-    }
-
-    public void setIscorrect(boolean iscorrect) {
-        this.iscorrect = iscorrect;
-    }
 }

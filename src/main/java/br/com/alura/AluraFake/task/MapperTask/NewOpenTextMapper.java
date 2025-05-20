@@ -13,7 +13,7 @@ public class NewOpenTextMapper {
 
         NewOpenText entity = new NewOpenText();
         entity.setStatement(dto.getStatement());
-        entity.setOrder(dto.getOrder());
+        entity.setOrderr(dto.getOrderr());
         entity.setType(Type.OPEN_TEXT);
 
         return entity;

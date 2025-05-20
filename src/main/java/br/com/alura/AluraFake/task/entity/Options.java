@@ -12,18 +12,16 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+
 public class Options {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private Long id;
     private String option;
-    private boolean isCorrect;
-    @JsonIgnore
+    private boolean iscorrect;
     @ManyToOne
-    @JoinColumn(name = "task_id")
+    @JoinColumn(name = "task_id", nullable = false)
     private Task task;
-
 
 }

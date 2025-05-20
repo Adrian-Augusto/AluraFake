@@ -7,30 +7,40 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Table(name = "tasks")
 @Getter
 @Setter
-public class   Task {
+public class Task {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String statement;
-    @Column(name = "orderr")
-    private Integer order;
+
+    private Integer orderr;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "courseId")
     @JsonIgnore
     private Course course;
-    @Enumerated(EnumType.STRING) // Salva como texto no banco, ex: "OPEN_TEXT"
+    @Enumerated(EnumType.STRING)
     private Type type;
+    // One-to-Many unidirecional: Task “dona” da FK task_id na tabela options
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "task_id") // cria a coluna options.task_id apontando para tasks.id
+    private List<Options> options = new ArrayList<>();
 
 
     public Task(Long id, String statement, int order, Course course, Type type) {
         this.id = id;
         this.statement = statement;
-        this.order = order;
+        this.orderr = order;
         this.course = course;
         this.type = type;
     }
