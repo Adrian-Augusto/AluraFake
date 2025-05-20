@@ -29,20 +29,19 @@ public class TaskController {
     @PostMapping("/task/new/opentext")
     public ResponseEntity<NewOpenText> newOpenTextExercise(@Valid @RequestBody NewOpenTextDTO dto) {
         NewOpenText newOpenText = newOpenTex.newOpenTextExercise(dto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(newOpenText);
     }
 
     @PostMapping("/task/new/singlechoice")
     public ResponseEntity<NewSingleChoice> newSingleChoice(@Valid @RequestBody NewSingleChoiceDTO dto) {
         NewSingleChoice newSingleChoice = newSingle.singlechoice(dto);
-
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(newSingleChoice);
     }
 
     @PostMapping("/task/new/multiplechoice")
     public ResponseEntity<NewMultiplechoice> newMultipleChoice(@Valid @RequestBody NewMultiplechoiceDTO dto) {
         NewMultiplechoice choice = service.newMultipleChoice(dto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(choice);
     }
 
 }

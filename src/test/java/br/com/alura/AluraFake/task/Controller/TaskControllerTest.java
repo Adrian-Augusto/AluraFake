@@ -1,7 +1,13 @@
 package br.com.alura.AluraFake.task.Controller;
 
+import br.com.alura.AluraFake.task.dto.NewMultiplechoiceDTO;
+import br.com.alura.AluraFake.task.dto.NewOpenTextDTO;
 import br.com.alura.AluraFake.task.dto.NewSingleChoiceDTO;
+import br.com.alura.AluraFake.task.entity.NewMultiplechoice;
+import br.com.alura.AluraFake.task.entity.NewOpenText;
 import br.com.alura.AluraFake.task.entity.NewSingleChoice;
+import br.com.alura.AluraFake.task.services.NewMultipleService;
+import br.com.alura.AluraFake.task.services.NewOpenTextService;
 import br.com.alura.AluraFake.task.services.NewSingleChoiceService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +23,13 @@ class TaskControllerTest {
     private TaskController controller;
 
     @Mock
-    private NewSingleChoiceService newSingle;
+    private NewOpenTextService newOpenTextService;
+
+    @Mock
+    private NewMultipleService newMultipleService;
+
+    @Mock
+    private NewSingleChoiceService newSingleChoiceService;
 
     @BeforeEach
     void setUp() {
@@ -25,8 +37,29 @@ class TaskControllerTest {
     }
 
     @Test
+    void testNewOpenTextExercise() {
+        // Arrange
+        NewOpenTextDTO dto = new NewOpenTextDTO();
+        NewOpenText entity = new NewOpenText();
+        entity.setId(10L);
+
+        when(newOpenTextService.newOpenTextExercise(dto)).thenReturn(entity);
+
+        // Act
+        ResponseEntity<NewOpenText> response = controller.newOpenTextExercise(dto);
+
+        // Assert
+        assertNotNull(response);
+        assertEquals(200, response.getStatusCodeValue());
+        assertNotNull(response.getBody());  // corpo não pode ser nulo
+        assertEquals(10L, response.getBody().getId());
+
+        verify(newOpenTextService, times(1)).newOpenTextExercise(dto);
+    }
+
+    @Test
     void testNewSingleChoice() {
-        // Arrange - criar DTO de entrada e entidade mockada de retorno
+        // Arrange
         NewSingleChoiceDTO dto = new NewSingleChoiceDTO();
         dto.setCourseId(1L);
         dto.setStatement("Pergunta teste");
@@ -35,22 +68,38 @@ class TaskControllerTest {
         entity.setId(123L);
         entity.setStatement("Pergunta teste");
 
-        // Configura mock para retornar a entidade ao chamar service
-        when(newSingle.singlechoice(dto)).thenReturn(entity);
+        when(newSingleChoiceService.singlechoice(dto)).thenReturn(entity);
 
-        // Act - chamar o método do controller
-        ResponseEntity<NewSingleChoiceDTO> response = controller.newSingleChoice(dto);
+        // Act
+        ResponseEntity<NewSingleChoice> response = controller.newSingleChoice(dto);
 
         // Assert
         assertNotNull(response);
         assertEquals(200, response.getStatusCodeValue());
+        assertNotNull(response.getBody());
+        assertEquals(123L, response.getBody().getId());
+        assertEquals("Pergunta teste", response.getBody().getStatement());
 
-        NewSingleChoiceDTO responseBody = response.getBody();
-        assertNotNull(responseBody);
-        assertEquals(123L, responseBody.getCourseId()); // cuidado com o campo usado!
-        assertEquals("Pergunta teste", responseBody.getStatement());
-
-        // Verifica se service foi chamado 1 vez
-        verify(newSingle, times(1)).singlechoice(dto);
+        verify(newSingleChoiceService, times(1)).singlechoice(dto);
     }
-}
+
+    @Test
+    void testNewMultipleChoice() {
+        // Arrange
+        NewMultiplechoiceDTO dto = new NewMultiplechoiceDTO();
+        NewMultiplechoice entity = new NewMultiplechoice();
+        entity.setId(50L);
+
+        when(newMultipleService.newMultipleChoice(dto)).thenReturn(entity);
+
+        // Act
+        ResponseEntity<NewMultiplechoice> response = controller.newMultipleChoice(dto);
+
+        // Assert
+        assertNotNull(response, "ResponseEntity não deve ser nulo");
+        assertEquals(200, response.getStatusCodeValue(), "Código HTTP deve ser 200");
+        assertNotNull(response.getBody(), "Corpo da resposta não deve ser nulo");
+        assertEquals(50L, response.getBody().getId(), "ID do corpo deve ser 50L");
+
+        verify(newMultipleService, times(1)).newMultipleChoice(dto);
+    }}
