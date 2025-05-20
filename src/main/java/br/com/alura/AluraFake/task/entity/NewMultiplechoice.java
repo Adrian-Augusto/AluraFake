@@ -1,12 +1,10 @@
 package br.com.alura.AluraFake.task.entity;
 import br.com.alura.AluraFake.task.Type.Type;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,11 +13,10 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@DiscriminatorValue("MULTIPLE")
 public class NewMultiplechoice extends Task {
 
     @Transient
-    private Type type = Type.MULTIPLE_CHOICE;
+    protected Type type = Type.MULTIPLE_CHOICE;
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Options> options = new ArrayList<>();
 }
