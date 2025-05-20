@@ -32,7 +32,7 @@ public class NewSingleChoiceService {
     @Transactional
     public NewSingleChoice singlechoice(NewSingleChoiceDTO dto) {
         Course course = courseRepository.findById(dto.getCourseId())
-                .orElseThrow(() -> new RuntimeException("Curso não encontrado"));
+                .orElseThrow(() -> new RuntimeException("Course not found "));
 
         NewSingleChoice entity = NewSingleChoiceMapper.toEntity(dto);
 
@@ -49,4 +49,10 @@ public class NewSingleChoiceService {
         repository.saveAll(existingTasks); // salvar tasks com ordens atualizadas
 
         return repository.save(entity); // salvar a nova task
-    }}
+    }
+
+
+
+
+
+}

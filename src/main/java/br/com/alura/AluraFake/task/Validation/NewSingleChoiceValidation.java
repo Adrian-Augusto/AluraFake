@@ -1,19 +1,16 @@
 package br.com.alura.AluraFake.task.Validation;
-
 import br.com.alura.AluraFake.course.Course;
-import br.com.alura.AluraFake.course.CourseRepository;
 import br.com.alura.AluraFake.course.Status;
-import br.com.alura.AluraFake.task.entity.NewMultiplechoice;
+import br.com.alura.AluraFake.task.Exeception.NewSingleException;
 import br.com.alura.AluraFake.task.entity.NewSingleChoice;
 import br.com.alura.AluraFake.task.entity.Options;
 import br.com.alura.AluraFake.task.repository.NewSingleChoiceRepository;
-import jakarta.validation.ValidationException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 @Component
 public class NewSingleChoiceValidation {
 
@@ -31,12 +28,12 @@ public class NewSingleChoiceValidation {
     public void validate(NewSingleChoice single, Course course) {
         // 1. Curso deve estar em BUILDING
         if (!Status.BUILDING.name().equalsIgnoreCase(course.getStatus().name())) {
-            throw new ValidationException("O curso não está com status BUILDING.");
+            throw new NewSingleException("The course is not in BUILDING status.");
         }
 
         // 2. Não pode ter mesma questão
         if (repository.existsByCourseAndStatement(course, single.getStatement())) {
-            throw new ValidationException("O curso já possui uma atividade com este enunciado.");
+            throw new NewSingleException("The course already contains an activity with this statement.");
         }
 
         // 3. Validação das alternativas
@@ -45,12 +42,12 @@ public class NewSingleChoiceValidation {
 
     private void validateOptions(List<Options> options, String statement) {
         if (options == null || options.size() < 1 || options.size() > 4) {
-            throw new ValidationException("A atividade deve ter entre 2 e 5 alternativas.");
+            throw new NewSingleException("The activity must have between 2 and 5 options.");
         }
 
         long correctCount = options.stream().filter(Options::isIscorrect).count();
         if (correctCount != 1) {
-            throw new ValidationException("A atividade deve ter exatamente uma alternativa correta.");
+            throw new NewSingleException("The activity must have exactly one correct option.");
         }
 
         Set<String> uniqueTexts = new HashSet<>();
@@ -58,15 +55,15 @@ public class NewSingleChoiceValidation {
             String text = option.getOption().trim();
 
             if (text.length() < 4 || text.length() > 80) {
-                throw new ValidationException("Cada alternativa deve ter entre 4 e 80 caracteres.");
+                throw new NewSingleException("Each option must be between 4 and 80 characters.");
             }
 
             if (!uniqueTexts.add(text.toLowerCase())) {
-                throw new ValidationException("As alternativas não podem ser iguais entre si.");
+                throw new NewSingleException("Options must not be duplicates.");
             }
 
             if (text.equalsIgnoreCase(statement.trim())) {
-                throw new ValidationException("As alternativas não podem ser iguais ao enunciado.");
+                throw new NewSingleException("Options must not match the statement.");
             }
         }
     }
